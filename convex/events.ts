@@ -1,6 +1,6 @@
 import { query } from "./_generated/server";
 import {ConvexError,v} from "convex/values"
-import { CarTaxiFront } from "@/node_modules/lucide-react/dist/lucide-react";
+
 import { TICKET_STATUS, WAITING_LIST_STATUS } from "./constants";
 export const get= query({
     args:{},

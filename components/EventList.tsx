@@ -5,6 +5,8 @@ import { api } from "@/convex/_generated/api";
 import Spinner from "./Spinner";
 import { CalendarDays,Ticket } from "lucide-react";
 import EventCard from "./EventCard";
+
+
 const EventList = () => {
   const events = useQuery(api.events.get);
   console.log(events);
@@ -30,6 +32,8 @@ const EventList = () => {
       </div>
     );
   }
+
+  
 
   return (
     <>
