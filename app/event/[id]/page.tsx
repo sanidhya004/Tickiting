@@ -12,6 +12,7 @@ import { SignInButton, useUser } from "@clerk/nextjs";
 import { useStorageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import JoinQueue from "@/components/JoinQueue";
 
 export default function EventPage() {
   const { user } = useUser();
@@ -117,10 +118,10 @@ export default function EventPage() {
                   <EventCard eventId={params.id as Id<"events">} />
 
                   {user ? (
-                    // <JoinQueue
-                    //   eventId={params.id as Id<"events">}
-                    //   userId={user.id}
-                    // />>
+                    <JoinQueue
+                      eventId={params.id as Id<"events">}
+                      userId={user.id}
+                    />>
                     <></>
                   ) : (
                     <SignInButton>
