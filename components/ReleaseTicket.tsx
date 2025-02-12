@@ -7,7 +7,7 @@ import {useMutation} from "convex/react"
 
 const ReleaseTicket = ({eventId,waitingListId}:{eventId:Id<"events">,waitingListId: Id<"waitingList">}) => {
 
-  const [Releasing ,setisReleasing]=useSate(false);
+  const [Releasing ,setisReleasing]= useState(false)
   const releaseTicket= useMutation(api.waitingList.releaseTicket)
   const handleRelease= async()=>{ 
     if(!confirm("Are you sure you want to release the ticket")){

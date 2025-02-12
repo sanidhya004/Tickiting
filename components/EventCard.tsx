@@ -27,7 +27,7 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
   const router = useRouter();
   const event = useQuery(api.events.getbyId, { eventId });
   const availability = useQuery(api.events.getEventAvailability, { eventId });
-  const userTicket = useQuery(api.tickets.getEventAvailability, {
+  const userTicket = useQuery(api.tickets.getUserTicketForEvent, {
     eventId,
     userId: user?.id ?? "",
   });

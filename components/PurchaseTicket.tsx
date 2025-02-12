@@ -1,27 +1,30 @@
-"use client"
-import { Id } from '@/convex/_generated/dataModel'
+"use client";
 
-import React from 'react'
-import { useEffect } from 'react';
-import {useQuery} from "convex/react";
-import { useRouter } from 'next/navigation';
-import { Ticket } from 'lucide-react';
-import ReleaseTicket from '@/components/ReleaseTicket';
-const PurchaseTicket = ({eventId}:{eventId: Id<"events">}) => {
-    const router=useRouter();
-    const {user}=useUser();
-    const queuePosition=useQuery(api.waitingList.getQueuePosition,{
-        eventId,
-        userId:user?.id ?? "",
-    })
-const [timeRemaining,setTimeRemaining]=useState("");
-const [isLoading,setIsLoading]=useState(false)
-const offerExpiresAt= queuePosition?.offerExpiresAt ?? 0;
-const isExpired= Date.now() > offerExpiresAt;
-const handlePurchase=()=>{
+// import { createStripeCheckoutSession } from "@/app/actions/createStripeCheckoutSession";
+import { Id } from "@/convex/_generated/dataModel";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { api } from "@/convex/_generated/api";
+import { useQuery } from "convex/react";
+import ReleaseTicket from "./ReleaseTicket";
+import { Ticket } from "lucide-react";
 
-}
-useEffect(() => {
+export default function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
+  const router = useRouter();
+  const { user } = useUser();
+  const queuePosition = useQuery(api.waitingList.getQueuePosition, {
+    eventId,
+    userId: user?.id ?? "",
+  });
+
+  const [timeRemaining, setTimeRemaining] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const offerExpiresAt = queuePosition?.offerExpiresAt ?? 0;
+  const isExpired = Date.now() > offerExpiresAt;
+
+  useEffect(() => {
     const calculateTimeRemaining = () => {
       if (isExpired) {
         setTimeRemaining("Expired");
@@ -47,17 +50,34 @@ useEffect(() => {
     const interval = setInterval(calculateTimeRemaining, 1000);
     return () => clearInterval(interval);
   }, [offerExpiresAt, isExpired]);
-  if(!user || !queuePosition || queuePosition.status !="offered"){
-     return null
+
+  const handlePurchase = async () => {
+    if (!user) return;
+
+    try {
+      setIsLoading(true);
+      const { sessionUrl } = await createStripeCheckoutSession({
+        eventId,
+      });
+
+      if (sessionUrl) {
+        router.push(sessionUrl);
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (!user || !queuePosition || queuePosition.status !== "offered") {
+    return null;
   }
 
-  const handlePurchance=async ()=>{
-
-  }
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-200">
-          <div className="space-y-4">
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+      <div className="space-y-4">
+        <div className="bg-white rounded-lg p-6 border border-gray-200">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
@@ -77,9 +97,9 @@ useEffect(() => {
               A ticket has been reserved for you. Complete your purchase before
               the timer expires to secure your spot at this event.
             </div>
-          
           </div>
         </div>
+
         <button
           onClick={handlePurchase}
           disabled={isExpired || isLoading}
@@ -95,7 +115,5 @@ useEffect(() => {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default PurchaseTicket

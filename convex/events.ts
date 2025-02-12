@@ -21,21 +21,7 @@ export const getbyId = query({
   },
 });
 
-export const expireOffer= internalMutation({
-  args:{
-    waitingListId: v.id("waitingList"),
-    eventIdl: v.id("events")
-  },
-  handler: async(ctx,{waitingListId,eventId})=>{
-     const offer= await ctx.db.get(waitingListId):
-     if(!offer || offer.status !=WAITING_LIST_STATUS.OFFERED){
-       return ;
-     }
-     await ctx.db.patch(waitingListId,{
-       status:WAITING_LIST_STATUS.EXPIRED
-     })
-  }
-})
+
 
 export const getEventAvailability = query({
   args: { eventId: v.id("events") },
