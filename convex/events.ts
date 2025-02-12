@@ -161,5 +161,17 @@ export const joinWaitingList = mutation({
         }
       )
     }
+    else{
+       await ctx.db.insert("waitingList",{
+         eventId,
+         userId,
+         status:WAITING_LIST_STATUS.WAITING
+       })
+    }
+    return {
+       success:true,
+       status:available?WAITING_LIST_STATUS.OFFERED:WAITING_LIST_STATUS.WAITING,
+       message:available?`Ticket Offered`:"Added to waiting list"
+    }
   },
 });

@@ -50,6 +50,10 @@ useEffect(() => {
   if(!user || !queuePosition || queuePosition.status !="offered"){
      return null
   }
+
+  const handlePurchance=async ()=>{
+
+  }
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-200">
           <div className="space-y-4">
