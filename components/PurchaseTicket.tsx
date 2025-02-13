@@ -23,7 +23,7 @@ export default function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
 
   const offerExpiresAt = queuePosition?.offerExpiresAt ?? 0;
   const isExpired = Date.now() > offerExpiresAt;
-
+   
   useEffect(() => {
     const calculateTimeRemaining = () => {
       if (isExpired) {
@@ -35,6 +35,7 @@ export default function PurchaseTicket({ eventId }: { eventId: Id<"events"> }) {
       const minutes = Math.floor(diff / 1000 / 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
+       
       if (minutes > 0) {
         setTimeRemaining(
           `${minutes} minute${minutes === 1 ? "" : "s"} ${seconds} second${
