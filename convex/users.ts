@@ -3,6 +3,23 @@ import { v } from "convex/values";
 import { isErrored } from "stream";
 
 
+
+export const updateOrCreateUserStripeConnectId= mutation({
+  args:{
+    userId:v.string(),
+    stripeConnectId: v.string()
+  },
+  handler:async (ctx,args)=>{
+      const user=await ctx.db.query("users")
+      .withIndex("by_user_id",(q)=>q.eq("userId",args.userId))
+      .first()
+      
+      if(!user){
+          throw new Error("User is invalid")
+      }
+      await ctx.db.patch(user._id,{stripeConnectId:args.stripeConnectId})
+  }
+})
 export const getUsersStripeConnectId=query(
   {
     args:{
