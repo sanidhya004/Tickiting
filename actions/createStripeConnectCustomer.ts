@@ -1,4 +1,5 @@
-"use server"
+"use server";
+
 import { auth } from "@clerk/nextjs/server";
 import { api } from "@/convex/_generated/api";
 import { ConvexHttpClient } from "convex/browser";
@@ -12,35 +13,41 @@ if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
   throw new Error("NEXT_PUBLIC_CONVEX_URL is not set");
 }
 
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL);
 
-export const createStripeConnetCustomer=async()=>{
-     const {userId}=await auth()
-     if(!userId){
-        throw new Error("user not authenticated")
-     }
+export async function createStripeConnectCustomer() {
+  const { userId } = await auth();
 
-     const existingStripeConnectId = await convex.query(
-        api.users.getUsersStripeConnectId,
-        {
-          userId,
-        }
-      );
+  if (!userId) {
+    throw new Error("Not authenticated");
+  }
 
-     if (existingStripeConnectId){
-           return {account:existingStripeConnectId}
-     }
-     const account= await stripe.acccounts.create({
-         type:"express",
-         capabilities:{
-             card_payments:{requested:true},
-             transfers:{requested:true},
-             
-         }
-     })
+  // Check if user already has a connect account
+  const existingStripeConnectId = await convex.query(
+    api.users.getUsersStripeConnectId,
+    {
+      userId,
+    }
+  );
 
-     await convex.mutation(api.users.updateOrCreateUserStripeConnectId,{
-         userId,
-         existingStripeConnectId:account.id
-     });
-     return {account:account.id}
+  if (existingStripeConnectId) {
+    return { account: existingStripeConnectId };
+  }
+
+  // Create new connect account
+  const account = await stripe.accounts.create({
+    type: "express",
+    capabilities: {
+      card_payments: { requested: true },
+      transfers: { requested: true },
+    },
+  });
+
+  // Update user with stripe connect id
+  await convex.mutation(api.users.updateOrCreateUserStripeConnectId, {
+    userId,
+    stripeConnectId: account.id,
+  });
+
+  return { account: account.id };
 }
