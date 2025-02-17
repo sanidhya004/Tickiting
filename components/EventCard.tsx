@@ -1,14 +1,8 @@
 "use client";
-import React from "react";
 
-import { Id } from "@/convex/_generated/dataModel";
-import { useQuery } from "convex/react";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
-import { availableMemory } from "process";
-import { useStorageUrl } from "@/lib/utils";
-import Image from "@/node_modules/next/image";
+import { useQuery } from "convex/react";
+import { Id } from "@/convex/_generated/dataModel";
 import {
   CalendarDays,
   MapPin,
@@ -20,9 +14,13 @@ import {
   PencilIcon,
   StarIcon,
 } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
 import PurchaseTicket from "./PurchaseTicket";
+import { useRouter } from "next/navigation";
+import { useStorageUrl } from "@/lib/utils";
+import Image from "next/image";
 
-const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
+export default function EventCard({ eventId }: { eventId: Id<"events"> }) {
   const { user } = useUser();
   const router = useRouter();
   const event = useQuery(api.events.getbyId, { eventId });
@@ -35,13 +33,14 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
     eventId,
     userId: user?.id ?? "",
   });
-
   const imageUrl = useStorageUrl(event?.imageStorageId);
+
   if (!event || !availability) {
     return null;
   }
 
   const isPastEvent = event.eventDate < Date.now();
+
   const isEventOwner = user?.id === event?.userId;
 
   const renderQueuePosition = () => {
@@ -57,7 +56,6 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
         </div>
       );
     }
-  
 
     if (queuePosition.position === 2) {
       return (
@@ -76,7 +74,20 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
         </div>
       );
     }
-  }
+
+    return (
+      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
+        <div className="flex items-center">
+          <LoaderCircle className="w-4 h-4 mr-2 animate-spin text-blue-500" />
+          <span className="text-blue-700">Queue position</span>
+        </div>
+        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">
+          #{queuePosition.position}
+        </span>
+      </div>
+    );
+  };
+
   const renderTicketStatus = () => {
     if (!user) return null;
 
@@ -96,6 +107,7 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
         </div>
       );
     }
+
     if (userTicket) {
       return (
         <div className="mt-4 flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
@@ -114,6 +126,7 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
         </div>
       );
     }
+
     if (queuePosition) {
       return (
         <div className="mt-4">
@@ -134,33 +147,30 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
     }
 
     return null;
-
   };
 
-
   return (
-    <>
-      <div
-        onClick={() => {
-          router.push(`/event/${eventId}`);
-        }}
-        className={`bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer overflow-hidden relative ${
-          isPastEvent ? "opacity-75 hover:opacity-100" : ""
-        }`}
-      >
-        {imageUrl && (
-          <div className="realtive w-full h-full">
-            <Image
-              src={imageUrl}
-              alt={event.name}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-          </div>
-        )}
-        <div className={`p-6 ${imageUrl ? "relative" : ""}`}>
+    <div
+      onClick={() => router.push(`/event/${eventId}`)}
+      className={`bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer overflow-hidden relative ${
+        isPastEvent ? "opacity-75 hover:opacity-100" : ""
+      }`}
+    >
+      {/* Event Image */}
+      {imageUrl && (
+        <div className="relative w-full h-48">
+          <Image
+            src={imageUrl}
+            alt={event.name}
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </div>
+      )}
+
+      <div className={`p-6 ${imageUrl ? "relative" : ""}`}>
         <div className="flex justify-between items-start">
           <div>
             <div className="flex flex-col items-start gap-2">
@@ -178,6 +188,8 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
               </span>
             )}
           </div>
+
+          {/* Price Tag */}
           <div className="flex flex-col items-end gap-2 ml-4">
             <span
               className={`px-4 py-1.5 font-semibold rounded-full ${
@@ -194,8 +206,9 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
               </span>
             )}
           </div>
-          </div>
-          <div className="mt-4 space-y-3">
+        </div>
+
+        <div className="mt-4 space-y-3">
           <div className="flex items-center text-gray-600">
             <MapPin className="w-4 h-4 mr-2" />
             <span>{event.location}</span>
@@ -224,6 +237,7 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
             </span>
           </div>
         </div>
+
         <p className="mt-4 text-gray-600 text-sm line-clamp-2">
           {event.description}
         </p>
@@ -232,12 +246,6 @@ const EventCard = ({ eventId }: { eventId: Id<"events"> }) => {
           {!isPastEvent && renderTicketStatus()}
         </div>
       </div>
-     
-
-        
-      </div>
-    </>
+    </div>
   );
-};
-
-export default EventCard;
+}
