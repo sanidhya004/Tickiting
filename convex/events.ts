@@ -14,6 +14,25 @@ export const get = query({
   },
 });
 
+export const search = query({
+  args: { searchTerm: v.string() },
+  handler: async (ctx, { searchTerm }) => {
+    const events = await ctx.db
+      .query("events")
+      .filter((q) => q.eq(q.field("is_cancelled"), undefined))
+      .collect();
+
+    return events.filter((event) => {
+      const searchTermLower = searchTerm.toLowerCase();
+      return (
+        event.name.toLowerCase().includes(searchTermLower) ||
+        event.description.toLowerCase().includes(searchTermLower) ||
+        event.location.toLowerCase().includes(searchTermLower)
+      );
+    });
+  },
+});
+
 export const create = mutation({
   args: {
     name: v.string(),
@@ -304,5 +323,28 @@ export const purchaseTicket = mutation({
       console.error("Failed to complete ticket purchase:", error);
       throw new Error(`Failed to complete ticket purchase: ${error}`);
     }
+  },
+});
+
+
+export const getUserTickets = query({
+  args: { userId: v.string() },
+  handler: async (ctx, { userId }) => {
+    const tickets = await ctx.db
+      .query("tickets")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .collect();
+
+    const ticketsWithEvents = await Promise.all(
+      tickets.map(async (ticket) => {
+        const event = await ctx.db.get(ticket.eventId);
+        return {
+          ...ticket,
+          event,
+        };
+      })
+    );
+
+    return ticketsWithEvents;
   },
 });
