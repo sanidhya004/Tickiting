@@ -103,6 +103,7 @@ export default function EventForm({ mode, initialData }: EventFormProps) {
 
         // Handle image deletion/update in edit mode
         if (mode === "edit" && initialData?.imageStorageId) {
+          
           if (removedCurrentImage || selectedImage) {
             // Delete old image from storage
             await deleteImage({
@@ -112,6 +113,7 @@ export default function EventForm({ mode, initialData }: EventFormProps) {
         }
 
         if (mode === "create") {
+          
           const eventId = await createEvent({
             ...values,
             userId: user.id,

@@ -97,7 +97,7 @@ export default function EventCard({ eventId }: { eventId: Id<"events"> }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              router.push(`/seller/events/${eventId}/edit`);
+              router.push(`/seller/events/${eventId}`);
             }}
             className="w-full bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-200 shadow-sm flex items-center justify-center gap-2"
           >
