@@ -16,7 +16,7 @@ const EventEdit = () => {
       redirect("/")
   }
 
-  const event=useQuery(api.events.getbyId,{
+  const event=useQuery(api.events.getById,{
     eventId: params.id as Id<"events">,
   })
 

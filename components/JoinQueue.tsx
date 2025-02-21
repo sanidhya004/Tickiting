@@ -24,7 +24,7 @@ const JoinQueue = ({eventId,userId}:{eventId:Id<"events">,userId:Id<"users">}) =
    });
 
    const availability= useQuery(api.events.getEventAvailability,{eventId})
-   const event=useQuery(api.events.getbyId,{eventId})
+   const event=useQuery(api.events.getById,{eventId})
    const isEventOwner=userId===event.userId 
 
    const handleJoinQueue=async()=>{

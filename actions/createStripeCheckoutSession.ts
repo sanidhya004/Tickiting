@@ -8,7 +8,6 @@ import baseUrl from "@/lib/baseUrl";
 import { auth } from "@clerk/nextjs/server";
 import { DURATIONS } from "@/convex/constants";
 
-
 export type StripeCheckoutMetaData = {
   eventId: Id<"events">;
   userId: string;

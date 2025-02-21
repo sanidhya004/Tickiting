@@ -1,6 +1,6 @@
 "use client";
 
-// import { createStripeCheckoutSession } from "@/app/actions/createStripeCheckoutSession";
+import { createStripeCheckoutSession } from "@/actions/createStripeCheckoutSession";
 import { Id } from "@/convex/_generated/dataModel";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";

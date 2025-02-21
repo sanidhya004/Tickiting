@@ -17,7 +17,7 @@ import JoinQueue from "@/components/JoinQueue";
 export default function EventPage() {
   const { user } = useUser();
   const params = useParams();
-  const event = useQuery(api.events.getbyId, {
+  const event = useQuery(api.events.getById, {
     eventId: params.id as Id<"events">,
   });
   const availability = useQuery(api.events.getEventAvailability, {

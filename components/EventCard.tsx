@@ -20,10 +20,10 @@ import { useRouter } from "next/navigation";
 import { useStorageUrl } from "@/lib/utils";
 import Image from "next/image";
 
-export default function EventCard({ eventId }: { eventId: Id<"events"> }) {
+export default function EventCard({ eventId }: { eventId: any}) {
   const { user } = useUser();
   const router = useRouter();
-  const event = useQuery(api.events.getbyId, { eventId });
+  const event = useQuery(api.events.getById, { eventId });
   const availability = useQuery(api.events.getEventAvailability, { eventId });
   const userTicket = useQuery(api.tickets.getUserTicketForEvent, {
     eventId,
