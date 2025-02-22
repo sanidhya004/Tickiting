@@ -1,6 +1,6 @@
 import { query, mutation, internalMutation } from "./_generated/server";
 import { ConvexError, v } from "convex/values";
-import { components, internal } from "./_generated/api";
+import {  internal } from "./_generated/api";
 
 import { DURATIONS, TICKET_STATUS, WAITING_LIST_STATUS } from "./constants";
 import { P } from "@/node_modules/@clerk/clerk-react/dist/useAuth-y8kzNBhq";

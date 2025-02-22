@@ -25,7 +25,7 @@ const JoinQueue = ({eventId,userId}:{eventId:any,userId:any}) => {
 
    const availability= useQuery(api.events.getEventAvailability,{eventId})
    const event=useQuery(api.events.getById,{eventId})
-   const isEventOwner=userId===event.userId 
+   const isEventOwner=userId===event?.userId 
 
    const handleJoinQueue=async()=>{
        try{
@@ -43,7 +43,7 @@ const JoinQueue = ({eventId,userId}:{eventId:any,userId:any}) => {
             toast({
               variant:"destructive",
               title:"Slow down there!",
-              description:error.details,
+              description:error.data,
               duration:5000
             })
         }
