@@ -20,3 +20,14 @@ npm run dev
 
 # In new terminal - activate real-time magic
 npx convex dev
+```
+## ✨ **Why Ticketr?**
+
+| **For Attendees** 🎫               | **For Organizers** 🎪               |
+|-----------------------------------|------------------------------------|
+| 🔥 **Real-time Seat Maps** - Watch tickets disappear as others buy | 💸 **Instant Payouts** - Get paid directly via Stripe Connect |
+| 🚦 **Smart Queue System** - Fair position tracking with live updates | 📊 **Live Dashboard** - Monitor sales surge in real-time |
+| ⏳ **Time-Locked Offers** - Secure tickets before they vanish | 🤖 **Auto-Refunds** - Cancel events with one click |
+| 📱 **Mobile-First Tickets** - QR codes that work offline | 🛡️ **Fraud Shield** - AI-powered protection |
+| 💫 **Stress-Free Returns** - Automatic refund processing | 🎚️ **Custom Controls** - Set limits, prices & access rules |
+
