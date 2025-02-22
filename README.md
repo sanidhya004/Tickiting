@@ -21,21 +21,14 @@ npm run dev
 # In new terminal - activate real-time magic
 npx convex dev
 ```
-## ✨ **Why Ticketr?**
+## ⚡ **Tech Power Grid**
 
-| **For Attendees** 🎫               | **For Organizers** 🎪               |
-|-----------------------------------|------------------------------------|
-| 🔥 **Real-time Seat Maps** - Watch tickets disappear as others buy | 💸 **Instant Payouts** - Get paid directly via Stripe Connect |
-| 🚦 **Smart Queue System** - Fair position tracking with live updates | 📊 **Live Dashboard** - Monitor sales surge in real-time |
-| ⏳ **Time-Locked Offers** - Secure tickets before they vanish | 🤖 **Auto-Refunds** - Cancel events with one click |
-| 📱 **Mobile-First Tickets** - QR codes that work offline | 🛡️ **Fraud Shield** - AI-powered protection |
-| 💫 **Stress-Free Returns** - Automatic refund processing | 🎚️ **Custom Controls** - Set limits, prices & access rules |
-
-##🧩 Tech Power Grid
-graph TD
-  A[Next.js 14] --> B{Convex DB}
-  B --> C[Real-time Updates]
-  D[Clerk] --> E[Auth Magic]
-  F[Stripe] --> G[Payment Portal]
-  H[shadcn/ui] --> I[Pixel Perfection]
+| **Tech**         | **Superpower**                | **Purpose**                     |
+|-------------------|-------------------------------|---------------------------------|
+| 🚀 Next.js 14     | App Router + SSR              | Blazing-fast page transitions   |
+| 🔥 Convex         | Real-time database            | Live queue updates & sync       |
+| 🛡️ Clerk          | Auth middleware               | Secure user management          |
+| 💸 Stripe Connect | Payment processing            | Instant organizer payouts       |
+| 🎨 shadcn/ui      | Component library             | Pixel-perfect interfaces        |
+| ⏱️ Rate Limiter   | Queue fairness guardian       | Anti-bot protection             |
 
