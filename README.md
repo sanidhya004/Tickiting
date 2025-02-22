@@ -21,6 +21,23 @@ npm run dev
 # In new terminal - activate real-time magic
 npx convex dev
 ```
+
+## ✨ **Why Ticketr Exists**
+
+**The Frustration:**  
+😤 Ever missed tickets because the page didn't refresh?  
+😡 Waited in queue just to see "Sold Out"?  
+😓 Worried about fake events or payment scams?
+
+**The Fix:**  
+Ticketr combines **military-grade tech** with **fan-first design**:
+```diff
++ Real-time sync across all devices
++ Queue position guardian (no line cutting)
++ Stripe-backed purchase protection
++ Organizer verification system
+
+```
 ## ⚡ **Tech Power Grid**
 
 | **Tech**         | **Superpower**                | **Purpose**                     |
