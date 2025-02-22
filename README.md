@@ -31,3 +31,11 @@ npx convex dev
 | 📱 **Mobile-First Tickets** - QR codes that work offline | 🛡️ **Fraud Shield** - AI-powered protection |
 | 💫 **Stress-Free Returns** - Automatic refund processing | 🎚️ **Custom Controls** - Set limits, prices & access rules |
 
+##🧩 Tech Power Grid
+graph TD
+  A[Next.js 14] --> B{Convex DB}
+  B --> C[Real-time Updates]
+  D[Clerk] --> E[Auth Magic]
+  F[Stripe] --> G[Payment Portal]
+  H[shadcn/ui] --> I[Pixel Perfection]
+
