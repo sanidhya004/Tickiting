@@ -7,7 +7,7 @@ export async function createStripeConnectLoginLink(stripeAccountId:string) {
          throw new Error("invalid stripe account id")
     }
     try{
-         const loginLink=await stripe.acccounts.createLoginLink(stripeAccountId)
+         const loginLink=await stripe.accounts.createLoginLink(stripeAccountId)
          return loginLink.url;
     }
     catch(e){

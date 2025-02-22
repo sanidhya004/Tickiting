@@ -3,7 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { getConvexClient } from "@/lib/convex";
 import { api } from "@/convex/_generated/api";
 import Stripe from "stripe";
-import { StripeCheckoutMetaData } from "@/app/actions/createStripeCheckoutSession";
+import { StripeCheckoutMetaData } from "@/actions/createStripeCheckoutSession";
 
 export async function POST(req: Request) {
  try{
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-    console.log("🔍 Full Event:",event.data.object.metadata);
+  
     //console.log("Webhook event constructed successfully:", event.type);
   } catch (err) {
     console.error("Webhook construction failed:", err);

@@ -119,7 +119,7 @@ export default function EventPage() {
 
                   {user ? (
                     <JoinQueue
-                      eventId={params.id as Id<"events">}
+                      eventId={params.id }
                       userId={user.id}
                     />
                     

@@ -8,9 +8,14 @@ import Ticket from "@/components/Ticket";
 const TicketSuccess = async() => {
   const { userId } = await auth();
   const convex = getConvexClient();
+  if(!userId){
+     redirect("/")
+  }
   
-
+  
   const tickets = await convex.query(api.events.getUserTickets, { userId });
+
+  
   const latestTicket = tickets[tickets.length - 1];
 
   if (!latestTicket) {

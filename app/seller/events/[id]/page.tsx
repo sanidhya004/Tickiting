@@ -19,7 +19,9 @@ const EventEdit = () => {
   const event=useQuery(api.events.getById,{
     eventId: params.id as Id<"events">,
   })
-
+  if(!event){
+    return null
+  }
   return (
     <div className="max-w-3xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">

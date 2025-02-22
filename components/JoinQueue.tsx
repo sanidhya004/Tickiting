@@ -11,7 +11,7 @@ import { ConvexError } from "convex/values";
 
 
 
-const JoinQueue = ({eventId,userId}:{eventId:Id<"events">,userId:Id<"users">}) => {
+const JoinQueue = ({eventId,userId}:{eventId:any,userId:any}) => {
    const {toast}=useToast()
    const joinWaitingList = useMutation(api.events.joinWaitingList);
    const queuePosition = useQuery(api.waitingList.getQueuePosition, {
