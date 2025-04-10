@@ -1,5 +1,8 @@
 import React from 'react';
 import { TicketIcon, GithubIcon, TwitterIcon, InstagramIcon } from 'lucide-react';
+import logo from "@/images/logo.png";
+import Image from 'next/image';
+
 
 const Footer = () => {
   return (
@@ -8,7 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <TicketIcon className="h-6 w-6 text-ticketr-primary" />
+              <Image src={logo} width={100} height={100} alt="logo" />
               <span className="text-xl font-bold bg-gradient-to-r from-ticketr-primary to-ticketr-accent text-transparent bg-clip-text">
                 Ticketr
               </span>
