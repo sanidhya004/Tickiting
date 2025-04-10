@@ -29,7 +29,7 @@ export default function Home() {
       <div className="container mx-auto flex items-center justify-between h-16 px-4 md:px-6">
         
         
-        <nav className="hidden md:flex  space-x-8">
+        <nav className="md:flex  space-x-8">
           <a href="#features" className="text-sm font-medium text-gray-700 hover:text-ticketr-primary transition-colors">
             Features
           </a>
