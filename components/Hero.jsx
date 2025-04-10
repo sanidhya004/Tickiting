@@ -11,7 +11,7 @@ const Hero = ({events}) => {
    console.log(events._id);
   const router = useRouter();
   return (
-    <div className="relative text-blue-600">
+    <div className="relative text-blue-600 flex flex-col items-center justify-center">
      
     <section className="pt-21 pb-20 md:pt-28 md:pb-28 overflow-hidden">
       
